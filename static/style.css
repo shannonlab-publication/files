@@ -1,0 +1,40 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+.container {
+  max-width: none !important;
+  width: 570px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.row {
+    height: 130px;
+}
+
+.card li {
+  display: inline-block;
+}
+
+div.col-xs-8 {
+    margin: 20px auto;
+}
+
+div.col-xs-3{
+  margin: 20px auto;
+}
+
+div.col-xs-3 * {
+  margin: 0px;
+  padding: 0px;
+}
+
+div.col-xs-4{
+  margin: 20px auto;
+}
+
+div.col-xs-4 * {
+  margin: 0px;
+  padding: -20px;
+}
