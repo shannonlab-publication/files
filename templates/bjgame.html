@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>トランプ</title>
+</head>
+<body>
+ 
+ <p>{{ msg }}</p>
+
+<h2>Dealer</h2>
+<ul>
+    {% for c in dealer_cards %}
+        <li> {{ c }}</li>
+    {% endfor %}
+</ul>
+<p>Dealer point :{{ dealer_point }}</p>
+
+<h2>Player</h2>
+<ul>
+    {% for c in player_cards %}
+        <li> {{ c }}</li>
+    {% endfor %}
+</ul>
+<p>Player point :{{ player_point }}</p>
+
+<p>money : {{ money }}</p>
+<p>bet : {{ bet }}</p>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    
+    {% if able_bet == True %}
+        <p>
+            bet：<input type="text" name="bet" size="20">
+        </p>
+    {% else %}
+   	    <p>
+            <input type="radio" name="operation" value="2" checked>Hit
+            <input type="radio" name="operation" value="1">Stand
+            <input type="radio" name="operation" value="3" {% if not able_double %} disabled="disabled" {% endif %}>Double
+        </p>
+    {% endif %}
+    
+    <p><input type="submit" value="送信"></p>
+</form>
+
+</body>
+
+</html>

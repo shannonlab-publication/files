@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Black Jack Game</title>
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse">
+        <div class="navbar-header">
+            <a class="nav navbar-brand" href="../game/">Black Jack Game</a>
+           
+        </div>
+            <ul class="nav navbar-nav">
+                <li><a href="../game/"><i class="glyphicon glyphicon-play"></i>ゲーム</a></li>
+                <li><a href="../howto/"><i class="glyphicon glyphicon-question-sign"></i>遊び方</a></li>
+            </ul>
+    </nav>
+        <div class="msg">
+        <div class="panel panel-default">
+                    	<div class="panel-body">
+                    		<B>{{ msg }}</B>
+                    	</div>
+        </div>
+        </div>
+        <div style="background-image: url({% static 'python_bk_s_new.png' %});
+                    background-repeat: no-repeat;
+                    background-position : 12px 2px;">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            コンピュータ
+                        </div>
+                        <div class="panel-body">
+                            {{ dealer_point }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-8">
+                    <ul class="card">
+                        {% static "cards/" as card_path %}
+                        {% if dealer_cards|length  == 1 %}
+                            <li> <img src="{{ card_path }}card_bk_red.png"></li>
+                        {% endif %}
+                        {% for c in dealer_cards %}
+                            <li> <img src="{{ card_path }}{{ c }}"></li>
+                        {% endfor %}
+    				</ul>
+                </div>
+            </div>
+            <form  action="" method="POST">{% csrf_token %}
+            <div class="row">
+                <div class="col-xs-3">
+                    <ul class="list-group">
+                    	<li class="list-group-item">ベット: {{ bet }}</li>
+                    	<li class="list-group-item">所持金: {{ money }}</li>
+                    </ul>
+                </div>
+                <div class="col-xs-4">
+                    {% if able_bet == True %}
+                    <div class="form-group">
+                        <label>
+                		<input type="text" class="form-control" name="bet" placeholder="ベット金額">
+                        </label>
+                    </div>
+                    {% else %}
+                    <fieldset class="form-group">
+                    <div class="radio">
+                		<label>
+                			<input type="radio" name="operation"  value="2" checked> ヒット
+                		</label>
+                	</div>
+                	<div class="radio">
+                		<label>
+                			<input type="radio" name="operation"  value="1"> スタンド
+                		</label>
+                	</div>
+                    <div class="radio">
+                		<label>
+                			<input type="radio" name="operation"  value="3" {% if not able_double %} disabled="disabled" {% endif %}> ダブル
+                		</label>
+                	</div>
+                    </fieldset>
+                    {% endif %}
+
+                </div>
+                <div class="col-xs-2">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+
+            </div>
+            </form>
+
+            <form><div class="row">
+                <div class="col-xs-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            プレイヤー
+                        </div>
+                        <div class="panel-body">
+                            {{ player_point }}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-xs-8">
+                    <ul class="card">
+                        {% static "cards/" as card_path %}
+                        {% for c in player_cards %}
+                            <li> <img src="{{ card_path }}{{ c }}"></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </form></div>
+        </div>
+	</body>
+</html>
